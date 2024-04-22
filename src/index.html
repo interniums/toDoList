@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>toDoList</title>
+</head>
+<body class="body">
+	<header class="header">
+		<h1 class="headerText">
+			PLANNER
+		</h1>
+	</header>
+		<h1 class="sidebarText">ADD TASK</h1>
+	<main class="main">
+		<div class="qouteContainer">
+			<h2 class="qoute">
+				"There are only two forces in the world, the sword and the spirit. And the sword will always be conquered by the spirit."
+			</h2>
+		</div>
+		<div class="downButtonContainer"></div>
+	</main>
+	<div class="secondLayer">
+		<div class="topSideContainer">
+			<div class="myProjectsContainer">
+				<div class="projectCellAll">
+					<div class="select2">
+						<select name="format2" id="format2">
+							 <option selected disabled>Choose project</option>
+							 <option value="allProjects">All Projects</option>
+							 <option value="project1">Project 1</option>
+						</select>
+				 </div>
+				</div>
+				<div class="projectCellOthers">
+					<div class="projectCell">
+						<p class="allProjects">In progress</p>
+					</div>
+					<div class="projectCell">
+						<p class="allProjects">Completed</p>
+					</div>
+					<div class="projectCell">
+						<p class="allProjects">Archive</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="middleSideContainer">
+			<div class="leftSideContainer">
+				<div class="tasksContainer today">
+					<div class="titleName today">
+						<div class="p">Today</div>
+						<div class="addTask today">
+							<img src="" alt="" class="addTaskImage">
+						</div>
+					</div>
+					<div id="cellContainerToday" class="cellContainer today">
+						<div class="cell today">
+							<div class="projectNameContainer today">
+								<p class="projectName today">TodoSite</p>
+								<div class="color today"></div>
+							</div>
+							<div class="taskContainer today">
+								<p class="taskName today">do styling</p>
+							</div>
+							<div class="dateContainer today">
+								<p class="date today">today</p>
+									<label class="switch today">
+										<input type="checkbox today">
+										<span class="slider round today"></span>
+									</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tasksContainer tomorrow">
+					<div class="titleName tomorrow">
+						<p>Tomorrow</p>
+						<div class="addTask tomorrow">
+							<img src="" alt="" class="addTaskImage">
+						</div>
+					</div>
+					<div class="cellContainer">
+						<div class="cell">
+							<div class="projectNameContainer">
+								<p class="projectName">TodoSite</p>
+								<div class="color"></div>
+							</div>
+							<div class="taskContainer">
+								<p class="taskName">do styling</p>
+							</div>
+							<div class="dateContainer">
+								<p class="date">today</p>
+									<label class="switch">
+										<input type="checkbox">
+										<span class="slider round"></span>
+									</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tasksContainer other">
+					<div class="titleName other">
+						<p>Other</p>
+						<div class="addTask other">
+							<img src="" alt="" class="addTaskImage">
+						</div>
+					</div>
+					<div class="cellContainer">
+						<div class="cell">
+							<div class="projectNameContainer">
+								<p class="projectName">TodoSite</p>
+								<div class="color"></div>
+							</div>
+							<div class="taskContainer">
+								<p class="taskName">do styling</p>
+							</div>
+							<div class="dateContainer">
+								<p class="date">today</p>
+									<label class="switch">
+										<input type="checkbox">
+										<span class="slider round"></span>
+									</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="rightSideContainer">
+				<div class="div"></div>
+				<div class="tasksContainer team">
+					<div class="titleName team">
+						<p>Your Team</p>
+						<div class="addTask team">
+							<img src="" alt="" class="addTaskImage">
+						</div>
+					</div>
+					<div class="cellContainer">
+						<div class="cell teamCell">
+							<div class="nameContainer">
+								<p class="teamName">Jhon</p>
+							</div>
+							<div class="avatarContainer">
+								<img src="" alt="" class="avatar">
+							</div>
+							<div class="positionContainer">
+								<p class="positionText">Manager</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="addTaskScreen">
+		<div class="addTaskContainerMain">
+			<div class="addTaskTitle">
+				<p>Add Task</p>
+			</div>
+			<div class="addTaskContainer">
+				<div class="choseProjectContainer">
+					<h1 class="taskProjectselect">Choose project:</h1>
+					<div class="select">
+						<select name="format" id="format">
+							 <option selected disabled>Choose project</option>
+							 <option value="allProjects">allProjects</option>
+							 <option value="project1">project1</option>
+						</select>
+				 </div>
+				</div>
+				<div class="inputNameContainer">
+					<div class="titleInputContainer">
+						<input class="titleNameInput" type="text" placeholder="Title name" required>
+					</div>
+					<div class="taskColorContainer">
+						<p>Choose color:</p>
+						<input type="color" class="taskInputColor">
+					</div>
+				</div>
+				<div class="taskDateContainer">
+					<p class="choseDate">Chose date:</p>
+					<span class="datepicker-toggle">
+						<span class="datepicker-toggle-button"></span>
+						<input type="date" class="datepicker-input">
+					</span>
+				</div>
+				<div class="taskTextContainer">
+					<textarea class="taskText" name="taskText" id="taskText" cols="18" rows="10" placeholder="What to do?"></textarea>
+				</div>
+				<div class="taskButtonContainer">
+					<button class="addTaskButton add">Add Task</button>
+					<button class="addTaskButton cancel">Cancel</button>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="addMemberScreen">
+		<div class="addMemberContainerMain">
+			<div class="addMemberTitle">
+				Add Team Member
+			</div>
+			<div class="addMemberContainer">
+				<div class="memberNameContainer">
+					<div class="memberNameInputContainer">
+						<input type="text" class="memberNameInput" placeholder="Name">
+					</div>
+					<div class="imageInputContainer">
+						<label for="avatarInput">
+							Upload avatar
+						</label>
+						<input type="file" class="avatarInput">
+					</div>
+				</div>
+					<div class="memberAgeContainer">
+						<input type="text" class="memberAgeInput" placeholder="Member age">
+					</div>
+					<div class="memberPositionContainer">
+						<input type="text" class="memberPositionInput" placeholder="Member position">
+					</div>
+					<div class="memeberTextContainer">
+						<textarea class="memberTextArea" name="memberTextArea" id="memberTextArea" cols="30" rows="10" placeholder="Notes"></textarea>
+					</div>
+					<div class="memberButtonsContainer">
+						<button class="addMemberButton">Add member</button>
+						<button class="addMemberButton">Cancel</button>
+					</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

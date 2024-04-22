@@ -1,0 +1,866 @@
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	font-family: 'Courier New', monospace;
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+	height: 200vh;
+	display: none;
+	flex-wrap: wrap;
+	background: linear-gradient(to bottom, rgb(113, 111, 145), rgb(58, 60, 67));
+}
+
+.header {
+	width: 100%;
+	height: 100px;
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	z-index: 2;
+}
+
+.headerText {
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 45px;
+	letter-spacing: 25px;
+	transition: .3s;
+}
+
+.headerText:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.sidebarText {
+	position: fixed;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 45px;
+	letter-spacing: -15px;
+	writing-mode: vertical-rl;
+	text-orientation: upright;
+	top: calc(50vh - 150px);
+	left: 0;
+	transition: .5s;
+	cursor: pointer;
+}
+
+.sidebarText:hover {
+	color: white;
+	cursor: pointer;
+}
+
+main {
+	width: 100%;
+	height: 100vh;
+	display: grid;
+	grid-template-rows: 12fr 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+.qouteContainer {
+	width: 600px;
+}
+
+.qoute {
+	color: rgba(255, 255, 255, .6);
+	font-size: 30px;
+	text-align: center;
+	transition: 1s;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+	white-space: wrap;
+}
+
+.qoute:hover {
+	color: white;
+}
+
+.downButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.downButton {
+	width: 75px;
+	height: 75px;
+	background-color: inherit;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.downButton:hover {
+	transform: scale(105%);
+	transition: .3s;
+}
+
+.downButton:active {
+	transform: scale(95%);
+	transition: 0s;
+}
+
+.secondLayer {
+	height: 100vh;
+	padding-left: 55px;
+	padding-top: 100px;
+	width: 100%;
+}
+
+.topSideContainer {
+	display: flex;
+	height: 55px;
+	width: 100%;
+	border-top: 3px solid rgba(165, 165, 165, .6);
+	border-left: 3px solid rgba(165, 165, 165, .6);
+	border-top-left-radius: 20px;
+	color: rgba(255, 255, 255, .5);
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.myProjectsContainer {
+	width: 100%;
+	height: 100%;
+	font-size: 30px;
+	font-weight: bold;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	overflow: hidden;
+	max-width: 100%;
+}
+
+.projectCellAll {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+.allProjects {
+	cursor: pointer;
+}
+
+.projectCellOthers {
+	display: flex;
+	overflow: auto;
+	justify-content: space-around;
+}
+
+.projectCell {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.middleSideContainer {
+	height: calc(100% - 55px);
+	border-left: 3px solid rgba(165, 165, 165, .6);
+	display: grid;
+	grid-template-columns: 3.5fr 2fr;
+	padding-left: 10px;
+	padding-top: 10px;
+	align-items: start;
+}
+
+.leftSideContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+.titleName {
+	color: rgba(255, 255, 255, .6);
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	gap: 10px;
+	height: 50px;
+}
+
+.addTask {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.addTaskImage {
+	width: 35px;
+	height: 35px;
+	transition: .3s;
+}
+
+.addTaskImage:hover {
+	transform: scale(110%);
+}
+
+.addTaskImage:active {
+	transform: scale(95%);
+	transition: 0s;
+}
+
+.cellContainer {
+	display: grid;
+	justify-items: start;
+	gap: 20px;
+	overflow: auto;
+	height: 660px;
+	overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cellContainer::-webkit-scrollbar {
+	display: none;
+	width: 0 !important;
+}
+
+.cell {
+	width: 80%;
+	height: 150px;
+	border: 1px solid rgba(165, 165, 165, .6);
+	border-radius: 20px;
+	color: rgba(255, 255, 255, .9);
+	font-weight: bold;
+	background-color: rgba(0, 0, 0, .2);
+	margin: 0% auto;
+	padding: 10px;
+	display: grid;
+	grid-template-rows: 1fr 2.5fr 1fr;
+}
+
+.tasksContainer {
+	display: grid;
+	align-items: center;
+	gap: 20px;
+	height: 100%;
+	overflow: hidden;
+}
+
+.dateContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.projectNameContainer {
+	display: flex;
+	align-items: center;
+  justify-content: space-between;
+	font-size: 30px;
+}
+
+.color {
+	width: 20%;
+	height: 20px;
+	background-color: rgba(94, 186, 58, 0.6);
+	border-radius: 20px;
+}
+
+.rightSideContainer {
+	display: grid;
+	grid-template-columns: 0.5fr 1fr;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.myTeamContainer {
+	display: grid;
+	gap: 20px;
+}
+
+.avatar {
+	width: 65px;
+	height: 65px;
+	object-fit: fill;
+	border-radius: 50%;
+}
+
+.teamName {
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.positionText {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.avatarContainer {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+
+.teamCell {
+	width: 50%;
+	background-color: rgba(0, 0, 0, .5);
+	cursor: pointer;
+}
+
+.addTaskScreen {
+	position: absolute;
+	top: 100vh;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+
+.addMemberScreen {
+	position: absolute;
+	top: 100vh;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+
+.addTaskContainerMain {
+	width: 1000px;
+	height: 650px;
+	display: grid;
+	grid-template-rows: 1fr 10fr;
+	align-items: center;
+}
+
+.addTaskTitle {
+	font-weight: bold;
+	text-align: center;
+	font-size: 40px;
+	color: rgba(255, 255, 255, .5);
+	height: 100%;
+}
+
+.addTaskContainer {
+	height: 100%;
+	border: 3px solid rgba(165, 165, 165, .6);
+	border-radius: 20px;
+	display: grid;
+	grid-template-rows: 1fr 1.5fr 1.5fr 3fr 1.5fr;
+	gap: 20px;
+	padding: 20px;
+	background: linear-gradient(to bottom, rgb(84, 84, 99), rgb(58, 60, 67));
+}
+
+.inputNameContainer {
+	display: flex;
+	justify-content: space-between;
+	height: 85px;
+	align-items: center;
+}
+
+.taskColorContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 20px;
+	gap: 10px;
+}
+
+.taskColorContainer input {
+	padding: 0px;
+}
+
+.taskButtonContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 35px;
+	padding: 20px;
+}
+
+.addTaskButton {
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 35px;
+	background-color: inherit;
+	border: 1px solid rgba(255, 255, 255, .6);
+	padding: 10px 20px;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.addTaskButton:hover {
+	transform: scale(105%);
+	color: white;
+	background: linear-gradient(to bottom, rgb(84, 84, 99), rgb(58, 60, 67));
+}
+
+.addTaskButton:active {
+	transform: scale(100%);
+	transition: 0s;
+}
+
+.choseProjectContainer {
+	display: flex;
+	justify-content: start;
+	gap: 30px;
+	align-items: center;
+	height: 50px;
+	margin-bottom: 15px;
+}
+
+.taskProjectselect {
+	color: rgba(255, 255, 255, .6);
+}
+
+.taskTextContainer {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}
+
+.addTaskContainer input {
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+}
+
+.titleNameInput {
+	outline: none;
+	background-color: inherit;
+	box-shadow: none;
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 30px;
+	height: 50px;
+	width: 250px;
+	appearance: none;
+	border: none;
+}
+
+.titleNameInput::placeholder {
+	color: rgba(255, 255, 255, .6);
+}
+
+.titleInputContainer {
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+}
+
+.taskInputColor {
+	width: 250px;
+	height: 35px;
+}
+
+.taskText {
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 20px;
+	padding: 10px;
+	height: 150px;
+	width: 700px;
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	resize: none;
+}
+
+.taskText::placeholder {
+	color: rgba(255, 255, 255, .6);
+	font-size: 30px;
+}
+
+.datepicker-toggle {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.datepicker-toggle-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/images/calendar.svg');
+}
+
+.datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.taskDateContainer {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	gap: 50px;
+}
+
+.choseDate {
+	color: rgba(255, 255, 255, .6);
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.addMemberContainerMain {
+	width: 1000px;
+	height: 650px;
+	grid-template-rows: 1fr 10fr;
+	display: grid;
+	align-items: center;
+}
+
+.addMemberTitle {
+	font-weight: bold;
+    text-align: center;
+    font-size: 40px;
+    color: rgba(255, 255, 255, .5);
+    height: 100%;
+}
+
+.addMemberContainer {
+	height: 100%;
+    border: 3px solid rgba(165, 165, 165, .6);
+    border-radius: 20px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 3fr 1.5fr;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgb(84, 84, 99), rgb(58, 60, 67));
+}
+
+.memberNameContainer {
+	display: flex;
+	justify-content: space-between;
+	height: 75px;
+	align-items: center;
+}
+
+.memberNameInputContainer {
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+}
+
+.memberNameInput {
+	height: 35px;
+	background-color: inherit;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	color: rgba(255, 255, 255, .6);
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+.memberNameInput::placeholder {
+	color: rgba(255, 255, 255, .6);
+	font-size: 25px;
+}
+
+.imageInputContainer {
+	display: grid;
+	grid-template-rows: auto;
+	font-size: 20px;
+}
+
+.imageInputContainer label {
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+.avatarInput {
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+}
+
+.memberAgeInput {
+	height: 35px;
+	background-color: inherit;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	color: rgba(255, 255, 255, .6);
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+.memberAgeInput::placeholder {
+	color: rgba(255, 255, 255, .6);
+	font-size: 25px;
+}
+
+.memberAgeContainer {
+	width: 260px;
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	height: 36px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.memberPositionContainer {
+	height: 36px;
+	width: 260px;
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	height: 36px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.memberPositionInput {
+	height: 35px;
+	background-color: inherit;
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	color: rgba(255, 255, 255, .6);
+	font-size: 20px;
+	font-weight: bold;
+	padding: 3px;
+}
+
+.memberPositionInput::placeholder {
+	color: rgba(255, 255, 255, .6);
+	font-size: 25px;
+}
+
+.memeberTextContainer {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}
+
+.memberTextArea {
+	appearance: none;
+	border: none;
+	outline: none;
+	background: none;
+	color: rgba(255, 255, 255, .6);
+	font-weight: bold;
+	font-size: 20px;
+	padding: 10px;
+	height: 150px;
+	width: 700px;
+	border-bottom: 1px solid rgba(255, 255, 255, .6);
+	resize: none;
+}
+
+.memberTextArea::placeholder {
+	color: rgba(255, 255, 255, .6);
+	font-size: 30px;
+}
+
+.memberButtonsContainer {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, .6);
+    font-weight: bold;
+    font-size: 35px;
+    padding: 20px;
+}
+
+.addMemberButton {
+	color: rgba(255, 255, 255, .6);
+    font-weight: bold;
+    font-size: 35px;
+    background-color: inherit;
+    border: 1px solid rgba(255, 255, 255, .6);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.addMemberButton:hover {
+	transform: scale(105%);
+	color: white;
+	background: linear-gradient(to bottom, rgb(84, 84, 99), rgb(58, 60, 67));
+}
+
+.addMemberButton:active {
+	transform: scale(100%);
+	transition: 0s;
+}
+
+
+/* ----------------------- */
+select {
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+	appearance:none;
+	outline:0;
+	box-shadow:none;
+	border: 1px solid rgba(255, 255, 255, .6);
+	border-radius: 5px;
+	background: rgb(84, 84, 99);
+	background-image: none;
+	flex: 1;
+	padding: 0 .5em;
+	color: rgba(255, 255, 255, .6);
+	cursor:pointer;
+	font-size: 30px;
+	font-weight: bold;
+}
+select::-ms-expand {
+	display: none;
+}
+.select {
+	position: relative;
+	display: flex;
+	width: 20em;
+	height: 3em;
+	line-height: 3;
+	background: rgb(84, 84, 99);
+	overflow: hidden;
+	border-radius: .25em;
+}
+.select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 1em;
+	background: rgba(255, 255, 255, .6);
+	cursor:pointer;
+	pointer-events:none;
+	transition:.25s all ease;
+}
+.select:hover::after {
+	color: #ffffff;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 41px;
+  height: 23px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, .4);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: rgba(94, 186, 58, 0.6);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px rgba(94, 186, 58, 0.6);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
