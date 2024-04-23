@@ -10,11 +10,16 @@ const userProjects = [
 ]
 
 const userMembers = [
-	['Jhon', '33', 'manager', myImages.avatar3]
+	{
+		number: 0,
+		name: 'Jhon',
+		age: '33',
+		position: 'Manager',
+		img: myImages.avatar1,
+		notes: ''
+	}
 ]
 
-
-// console.log(myDoom.cellContainerToday)
 export { userMembers }
 export { userTasks }
 export { userProjects }

@@ -1,7 +1,9 @@
-import { addTask } from "./functions"
+import { addMember, addTask } from "./functions"
 import myImages from "./images"
 import { addTaskListener } from "./functions"
 import { cancelButtonListener } from "./functions"
+import { renderMembers } from "./functions"
+import { editMember } from "./functions"
 
 const myDoom = {
 	downButtonContainer: document.querySelector('.downButtonContainer'),
@@ -15,6 +17,9 @@ const myDoom = {
 	addTaskButton: document.querySelector('.add'),
 	secondLayer: document.querySelector('.secondLayer'),
 	cellContainerToday: document.getElementById('cellContainerToday'),
+	addMemberButton: document.querySelector('.addMemberImage'),
+	addMemberScreen: document.querySelector('.addMemberScreen'),
+	memberContainer: document.querySelector('#memberContainer'),
 }
 
 function doom() {
@@ -28,16 +33,43 @@ function doom() {
 	const sideBarText = document.querySelector('.sidebarText')
 	const downButton = document.createElement('img')
 	const addTaskButtons = document.querySelectorAll('.addTaskImage')
-	const addTaskButton = document.querySelector('.cancel')
+	const buttons = document.querySelectorAll('.addMemberButton')
+	const avatarImage = document.querySelector('.avatarImage')
 
 	function firstLoad() {
 
-		addTaskButton.addEventListener('click', function () {
-			cancelButtonListener('task')
-			}
-		)
-		addTaskButtons.forEach(button=> {
-			button.addEventListener('click', addTaskListener)
+		renderMembers()
+
+		buttons.forEach(event=> {
+			event.addEventListener('click', function () {
+				let dataValue = event.getAttribute('data-value')
+				if (dataValue == 'memberCancel') {
+					cancelButtonListener('member')
+				} else if (dataValue == 'taskCancel') {
+					cancelButtonListener('task')
+				} else if (dataValue == 'memberAdd') {
+					addMember()
+				} else if (dataValue == 'editOk') {
+					// editMember()
+				} else if (dataValue == 'editCancel') {
+					 editMember(0, 'close')
+				} else if (dataValue == 'editRemove') {
+					editMember(0, 'remove')
+				}
+			})
+		})
+
+		avatarImage.setAttribute('src', myImages.avatar5)
+
+		addTaskButtons.forEach(event=> {
+			event.addEventListener('click', function () {
+				let dataValue = event.getAttribute('data-value')
+				if (dataValue == 'memberButton') {
+					addTaskListener('member')
+				} else if (dataValue == 'task') {
+					addTaskListener('task')
+				}
+			})
 		})
 
 		addTaskImage.forEach(event=> {
