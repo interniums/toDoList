@@ -1,12 +1,36 @@
 import myDoom from "./doom"
 import myImages from "./images"
 
-const userTasks = [
-	['do styling', '04.23.2024', 'green', 'false', ]
-]
 
 const userProjects = [
-	['ToDoSite', userTasks[0]]
+	{
+		number: 0,
+		name: 'project 1'
+	},
+	{
+		number: 1,
+		name: 'project 2'
+	}
+]
+
+const userTasks = [
+	{
+		number: 0,
+		name: 'doStyling',
+		task: 'doStyling...',
+		project: userProjects[0].name,
+		color: 'green',
+		date: 'Today',
+		completed: true,
+	},
+	{
+		number: 1,
+		name: 'some task',
+		project: userProjects[1].name,
+		color: 'blue',
+		date: 'Tomorrow',
+		completed: false,
+	}
 ]
 
 const userMembers = [

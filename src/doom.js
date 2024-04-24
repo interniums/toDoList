@@ -1,9 +1,10 @@
-import { addMember, addTask } from "./functions"
+import { addMember, addTask, renderTasks } from "./functions"
 import myImages from "./images"
 import { addTaskListener } from "./functions"
 import { cancelButtonListener } from "./functions"
 import { renderMembers } from "./functions"
 import { editMember } from "./functions"
+import { renderProjects } from "./functions"
 
 const myDoom = {
 	downButtonContainer: document.querySelector('.downButtonContainer'),
@@ -38,6 +39,7 @@ function doom() {
 
 	function firstLoad() {
 
+		renderTasks()
 		renderMembers()
 
 		buttons.forEach(event=> {
@@ -50,14 +52,18 @@ function doom() {
 				} else if (dataValue == 'memberAdd') {
 					addMember()
 				} else if (dataValue == 'editOk') {
-					// editMember()
+					editMember(0, 'edit')
 				} else if (dataValue == 'editCancel') {
 					 editMember(0, 'close')
 				} else if (dataValue == 'editRemove') {
 					editMember(0, 'remove')
+				} else if (dataValue == 'taskAdd') {
+					addTask()
 				}
 			})
 		})
+
+		renderProjects()
 
 		avatarImage.setAttribute('src', myImages.avatar5)
 
@@ -91,6 +97,7 @@ function doom() {
 		sideBarText.style.opacity = 0
 
 		window.addEventListener('scroll', handleScroll)
+		main.scrollIntoView({ behavior: 'smooth', block: 'end' })
 	}
 	firstLoad()
 
@@ -102,9 +109,9 @@ function doom() {
 
 		main.style.opacity = 1 - scrollProgress
 
-		if (scrollProgress > 1) {
-				secondLayer.scrollIntoView({ behavior: 'smooth', block: 'end' })
-		}
+		// if (scrollProgress > 1) {
+		// 		secondLayer.scrollIntoView({ behavior: 'smooth', block: 'end' })
+		// }
 	}
 
 	function downGo() {
@@ -119,4 +126,4 @@ function doom() {
 }
 
 export { doom }
-export default myDoom;
+export default myDoom
