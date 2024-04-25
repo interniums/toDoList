@@ -1,10 +1,12 @@
-import { addMember, addTask, renderTasks } from "./functions"
+import { addMember, addProject, addTask, renderTasks, resetScreen } from "./functions"
 import myImages from "./images"
 import { addTaskListener } from "./functions"
 import { cancelButtonListener } from "./functions"
 import { renderMembers } from "./functions"
 import { editMember } from "./functions"
 import { renderProjects } from "./functions"
+import { editTask } from "./functions"
+import { taskRemove } from "./functions"
 
 const myDoom = {
 	downButtonContainer: document.querySelector('.downButtonContainer'),
@@ -36,11 +38,14 @@ function doom() {
 	const addTaskButtons = document.querySelectorAll('.addTaskImage')
 	const buttons = document.querySelectorAll('.addMemberButton')
 	const avatarImage = document.querySelector('.avatarImage')
+	const addProjectButton = document.querySelector('.addProjectButton')
 
 	function firstLoad() {
 
 		renderTasks()
 		renderMembers()
+
+		addProjectButton.setAttribute('src', myImages.plusButton)
 
 		buttons.forEach(event=> {
 			event.addEventListener('click', function () {
@@ -59,6 +64,15 @@ function doom() {
 					editMember(0, 'remove')
 				} else if (dataValue == 'taskAdd') {
 					addTask()
+				} else if (dataValue == 'edit') {
+					editTask()
+					resetScreen()
+				} else if (dataValue == 'removeTask') {
+					console.log('remove')
+					taskRemove()
+					resetScreen()
+				} else if (dataValue == 'editTaskCancel') {
+					resetScreen()
 				}
 			})
 		})
@@ -74,6 +88,8 @@ function doom() {
 					addTaskListener('member')
 				} else if (dataValue == 'task') {
 					addTaskListener('task')
+				} else if (dataValue == 'addProject') {
+					addProject()
 				}
 			})
 		})

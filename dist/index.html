@@ -26,21 +26,14 @@
 				<div class="projectCellAll">
 					<div class="select2">
 						<select name="format2" id="format2">
-							 <option  selected  value="all Projects">All Projects</option>
-							 <!-- <option value="project1">Project 1</option> -->
+							<option  selected  value="all Projects">All Projects</option>
 						</select>
+				 </div>
+				 <div class="addProjectContainer">
+					<img data-value="addProject" class="addProjectButton addTaskImage" src="" alt="">
 				 </div>
 				</div>
 				<div class="projectCellOthers">
-					<div class="projectCell">
-						<p class="allProjects">In progress</p>
-					</div>
-					<div class="projectCell">
-						<p class="allProjects">Completed</p>
-					</div>
-					<div class="projectCell">
-						<p class="allProjects">Archive</p>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -95,7 +88,7 @@
 	<div class="addTaskScreen">
 		<div class="addTaskContainerMain">
 			<div class="addTaskTitle">
-				<p>Add Task</p>
+				<p class="addTaskTitle">Add Task</p>
 			</div>
 			<div class="addTaskContainer">
 				<div class="choseProjectContainer">
@@ -126,8 +119,8 @@
 					<textarea class="taskText" name="taskText" id="taskText" cols="18" rows="10" placeholder="What to do?"></textarea>
 				</div>
 				<div class="taskButtonContainer">
-					<button data-value="taskAdd" class="addMemberButton">Add Task</button>
-					<button data-value="taskCancel" class="addMemberButton">Cancel</button>
+					<button id="taskAddButton" data-value="taskAdd" class="addMemberButton">Add Task</button>
+					<button id="taskCancelButton" data-value="taskCancel" class="addMemberButton">Cancel</button>
 				</div>
 			</div>
 		</div>	
@@ -203,5 +196,45 @@
 			</div>
 		</div>
 	</div>
+	<!-- <div class="editTaskScreen">
+		<div class="editTaskContainerMain">
+			<div class="editTaskTitleContainer">
+				<P>Edit Task</P>
+			</div>
+			<div class="addTaskContainer">
+				<div class="choseProjectContainer">
+					<h1 class="taskProjectselect">Choose project:</h1>
+					<div class="select">
+						<select class="projectInput" name="format" id="format">
+							 <option selected value="all Projects">All Projects</option>
+						</select>
+				 </div>
+				</div>
+				<div class="inputNameContainer">
+					<div class="titleInputContainer">
+						<input class="titleNameInput" type="text" placeholder="Title name" required>
+					</div>
+					<div class="taskColorContainer">
+						<p>Choose color:</p>
+						<input type="color" class="taskInputColor">
+					</div>
+				</div>
+				<div class="taskDateContainer">
+					<p class="choseDate">Chose date:</p>
+					<span class="datepicker-toggle">
+						<span class="datepicker-toggle-button"></span>
+						<input type="date" class="datepicker-input">
+					</span>
+				</div>
+				<div class="taskTextContainer">
+					<textarea class="taskText" name="taskText" id="taskText" cols="18" rows="10" placeholder="What to do?"></textarea>
+				</div>
+				<div class="taskButtonContainer">
+					<button data-value="taskAdd" class="addMemberButton">Add Task</button>
+					<button data-value="taskCancel" class="addMemberButton">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div> -->
 </body>
 </html>

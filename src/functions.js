@@ -1,5 +1,5 @@
 import myDoom from "./doom"
-import { userProjects } from "./data"
+import { changeNumber, memberNumber, projcetNumber, taskNumber, userProjects } from "./data"
 import { userTasks } from "./data"
 import { userMembers } from "./data"
 import myImages from "./images"
@@ -7,9 +7,14 @@ import myImages from "./images"
 let clickedTask
 let selectedOption = 'all Projects'
 
+
+
 function renderProjects() {
+	const projectContainer = document.querySelector('#format2')
+	while (projectContainer.children.length > 1) {
+    projectContainer.removeChild(projectContainer.children[1])
+	}
 	for (let i = 0; i < userProjects.length; i++) {
-		const projectContainer = document.querySelector('#format2')
 		let name = userProjects[i].name
 
 		const newOption = document.createElement('option')
@@ -17,15 +22,16 @@ function renderProjects() {
 		newOption.textContent = `${name}`
 		projectContainer.addEventListener('change', function() {
 			selectedOption = projectContainer.options[projectContainer.selectedIndex].value
-			console.log(selectedOption)
-			console.log()
 			clearTasks()
 			renderTasks()
 		})
 		projectContainer.appendChild(newOption)
 	}
+	const projectContainer2 = document.querySelector('#format')
+	while (projectContainer2.children.length > 1) {
+    projectContainer2.removeChild(projectContainer2.children[1])
+	}
 	for (let i = 0; i < userProjects.length; i++) {
-		const projectContainer2 = document.querySelector('#format')
 		let name = userProjects[i].name
 
 		const newOption = document.createElement('option')
@@ -72,10 +78,15 @@ function renderTasks() {
 				dateContainer.classList.add('dateContainer')
 				dateText.classList.add('date')
 				checkbox.classList.add('checkbox')
+				checkbox.id = 'checkbox'
 
 				cell.dataset.number = number
-				cell.addEventListener('click', event=>{
+				cell.addEventListener('click', event=> {
+					if (event.target.id == 'checkbox') {
+						return
+					}
 					clickedTask = cell.dataset.number
+					renderEditTask()
 				})
 
 				projectName.textContent = `${project}`
@@ -84,10 +95,19 @@ function renderTasks() {
 				dateText.textContent = `${date}`
 				checkbox.type = 'checkBox'
 				checkbox.addEventListener('change', event=> {
+					clickedTask = cell.dataset.number
 					if (checkbox.checked == true) {
-						userTasks[clickedTask].completed = true
+						for (let i = 0; i < userTasks.length; i++) {
+							if (userTasks[i].number == clickedTask) {
+								userTasks[i].completed = true
+							}
+						}
 					} else if (checkbox.checked == false) {
-						userTasks[clickedTask].completed = false
+						for (let i = 0; i < userTasks.length; i++) {
+							if (userTasks[i].number == clickedTask) {
+								userTasks[i].completed = false
+							}
+						}
 					}
 				})
 				if (completed == true) {
@@ -95,8 +115,23 @@ function renderTasks() {
 				} else {
 					checkbox.checked = false
 				}
-				
-				if (date == 'Today') {
+
+				let date1 = new Date(date)
+				let today = new Date()
+				let tomorrow = new Date(today)
+				tomorrow.setDate(tomorrow.getDate() + 1)
+				function getD(value) {
+					let year = value.getFullYear()
+					let month = (value.getMonth() + 1).toString().padStart(2, '0')
+					let day = value.getDate().toString().padStart(2, '0')
+					return `${year}-${month}-${day}`
+				}
+
+				let taskDate = getD(date1)
+				let tomorrowDate = getD(tomorrow)
+				let todayDate = getD(today)
+
+				if (taskDate == todayDate) {
 					cellContainerToday.appendChild(cell)
 					cell.appendChild(projectNameContainer)
 					projectNameContainer.appendChild(projectName)
@@ -106,8 +141,7 @@ function renderTasks() {
 					cell.appendChild(dateContainer)
 					dateContainer.appendChild(dateText)
 					dateContainer.appendChild(checkbox)
-				} 
-				if (date == 'Tomorrow') {
+				} else if (taskDate == tomorrowDate) {
 					cellContainerTomorrow.appendChild(cell)
 					cell.appendChild(projectNameContainer)
 					projectNameContainer.appendChild(projectName)
@@ -117,8 +151,7 @@ function renderTasks() {
 					cell.appendChild(dateContainer)
 					dateContainer.appendChild(dateText)
 					dateContainer.appendChild(checkbox)
-				}
-				if (date !== 'Today' && date !== 'Tomorrow') {
+				} else {
 					cellContainerOther.appendChild(cell)
 					cell.appendChild(projectNameContainer)
 					projectNameContainer.appendChild(projectName)
@@ -135,7 +168,149 @@ function renderTasks() {
 }
 
 function addProject() {
+	const projectCellOthers = document.querySelector('.projectCellOthers')
+	while (projectCellOthers.firstChild) {
+		projectCellOthers.removeChild(projectCellOthers.firstChild)
+	}
+	const newInput = document.createElement('input')
+	const newButton = document.createElement('button')
+	newButton.classList.add('newButton')
+	newButton.textContent = 'CREATE'
 
+	newInput.classList.add('newInput')
+	newInput.placeholder = 'Project name...'
+	newButton.addEventListener('click', event=> {
+		let number1 = projcetNumber
+		changeNumber(1, 0, 0)
+		let name1 = newInput.value
+		if (name1 == '') {
+			name1 = 'New Project'
+		}
+		const newProject = new Project(number1, name1)
+		userProjects.push(newProject)
+		while (projectCellOthers.firstChild) {
+			projectCellOthers.removeChild(projectCellOthers.firstChild)
+		}
+		renderProjects()
+	})
+
+	projectCellOthers.appendChild(newInput)
+	projectCellOthers.appendChild(newButton)
+}
+
+function renderEditTask() {
+	addTaskListener('task')
+	const choseProjectContainer = document.querySelector('.choseProjectContainer')
+	const newButton = document.createElement('button')
+	const addTaskTitle = document.querySelector('.addTaskTitle')
+	const projectInput = document.getElementById('format')
+	const nameInput = document.querySelector('.titleNameInput')
+	const colorInput  = document.querySelector('.taskInputColor')
+	const dateInput = document.querySelector('.datepicker-input')
+	const notesInput = document.querySelector('#taskText')
+	const button = document.querySelector('#taskAddButton')
+	const taskCancelButton = document.getElementById('taskCancelButton')
+	addTaskTitle.textContent = 'Edit Task'
+	button.textContent = 'Edit task'
+	button.dataset.value = 'edit'
+
+	let name
+	let task
+	let project
+	let color
+	let date
+
+	for (let i = 0; i < userTasks.length; i++) {
+		if (userTasks[i].number == clickedTask) {
+			name = userTasks[i].name
+			task = userTasks[i].task
+			project = userTasks[i].project
+			color = userTasks[i].color
+			date = userTasks[i].date
+		}
+	}
+
+	for (let i = 0; i < projectInput.options.length; i++) {
+		if (projectInput.options[i].value === project) {
+			projectInput.selectedIndex = i
+			break
+		}
+	}
+	nameInput.placeholder = `${name}`
+	notesInput.placeholder = `${task}`
+	colorInput.value = `${color}`
+	dateInput.value = `${date}`
+	newButton.classList.add('addMemberButton')
+	newButton.dataset.value = 'removeTask'
+	newButton.textContent = 'Remove Task'
+	newButton.id = 'removeTaskButton'
+	choseProjectContainer.appendChild(newButton)
+	taskCancelButton.dataset.value = 'editTaskCancel'
+	newButton.addEventListener('click', event=> {
+					taskRemove()
+					resetScreen()
+	})
+}
+
+function editTask() {
+	const projectInput = document.getElementById('format')
+	const nameInput = document.querySelector('.titleNameInput')
+	const colorInput  = document.querySelector('.taskInputColor')
+	const dateInput = document.querySelector('.datepicker-input')
+	const notesInput = document.querySelector('#taskText')
+
+	let name = nameInput.value
+	let task = notesInput.value
+
+	for (let i = 0; i < userTasks.length; i++) {
+		if (userTasks[i].number == clickedTask) {
+			if (nameInput.value == '') {
+				name = userTasks[i].name
+			}
+			if (notesInput.value == '') {
+				task = userTasks[i].task
+			}
+			userTasks[i].project = projectInput.value 
+			userTasks[i].task = task
+			userTasks[i].color = colorInput.value
+			userTasks[i].date = dateInput.value
+			userTasks[i].name = name
+		}
+	}
+	clearTasks()
+	renderTasks()
+}
+
+function taskRemove() {
+	for (let i = 0; i < userTasks.length; i++) {
+		if (userTasks[i].number == clickedTask) {
+			userTasks.splice(i, 1)
+		}
+	}
+	clearTasks()
+	renderTasks()
+}
+
+function resetScreen() {
+	const taskCancelButton = document.getElementById('taskCancelButton')
+	const projectInput = document.getElementById('format')
+	const nameInput = document.querySelector('.titleNameInput')
+	const choseProjectContainer = document.querySelector('.choseProjectContainer')
+	const colorInput  = document.querySelector('.taskInputColor')
+	const dateInput = document.querySelector('.datepicker-input')
+	const newButton = document.getElementById('removeTaskButton')
+	const addTaskTitle = document.querySelector('.addTaskTitle')
+	const button = document.querySelector('#taskAddButton')
+	addTaskTitle.textContent = 'Add Task'
+	button.textContent = 'Add Task'
+	button.dataset.value = 'taskAdd'
+	taskCancelButton.dataset.value = 'taskCancel'
+	choseProjectContainer.removeChild(newButton)
+	projectInput.selectedIndex = 0
+	nameInput.placeholder = 'Name'
+	colorInput.value = "#000000"
+	dateInput.value = ''
+	cancelButtonListener('task')
 }
 
 function clearMembers() {
@@ -167,6 +342,13 @@ class Task {
 	}
 }
 
+class Project {
+	constructor(number, name) {
+		this.number = number
+		this.name = name
+	}
+}
+
 function clearTasks() {
 	const cellContainerTomorrow = document.getElementById('cellContainerTomorrow')
 		const cellContainerOther = document.getElementById('cellContainerOther')
@@ -186,9 +368,10 @@ function addTask() {
 	const nameInput = document.querySelector('.titleNameInput')
 	const colorInput = document.querySelector('.taskInputColor')
 	const dateInput = document.querySelector('.datepicker-input')
-	const taskTextInput = document.querySelector('.taskTextContainer')
+	const taskTextInput = document.getElementById('taskText')
 	const projectContainer2 = document.querySelector('#format')
-	const number = userTasks.length
+	let number = taskNumber
+	changeNumber(0, 0, 1)
 
 	let name = nameInput.value
 	let date = dateInput.value
@@ -196,29 +379,25 @@ function addTask() {
 	if (nameInput.value == '') {
 		name = 'new task'
 	}
-	if (dateInput.value == '') {
-		date = 'Today'
-	}
 	let today = new Date()
-	let tomorrow = new Date(today)
-	tomorrow.setDate(today.getDate() + 1)
-	let tomorowDay = tomorrow.getDate()
-	let todayDay = today.getDate()
-	if (date !== 'today') {
-		if (parseInt(date.slice(8)) == tomorowDay) {
-			date = 'Tomorrow'
-		} else if (parseInt(date.slice(8)) == todayDay) {
-			date = 'Today'
-		}
-	}
 
-	console.log(project)
+	let year = today.getFullYear();
+	let month = (today.getMonth() + 1).toString().padStart(2, '0')
+	let day = today.getDate().toString().padStart(2, '0')
+	let formattedDate = `${year}-${month}-${day}`
+	if (dateInput.value == ''){date = formattedDate}
+	
+
 	const newTask = new Task(number, name, taskTextInput.value, project, colorInput.value, date, false)
 	userTasks.push(newTask)
 	clearTasks()
 	nameInput.value = ''
-	taskTextInput.value = ''
+	nameInput.placeholder = 'Name...'
+	colorInput.value = '#000000'
 	dateInput.value = ''
+	taskTextInput.value = ''
+	taskTextInput.placeholder = 'What to do?'
+	projectContainer2.selectedIndex = 0
 	cancelButtonListener('task')
 	renderTasks()
 }
@@ -229,7 +408,8 @@ function addMember() {
 	const positionInput = document.querySelector('.memberPositionInput')
 	const notesInput = document.querySelector('.memberTextArea')
 	const avatarInput = document.querySelector('.avatarInput')
-	const number = userMembers.length
+	let number = memberNumber
+	changeNumber(0, 1, 0)
 	const addMemberScreen = document.querySelector('.addMemberScreen')
 
 	let avatarImage = avatarInput.value
@@ -421,3 +601,6 @@ export { addTask }
 export { addMember }
 export { editMember }
 export { renderTasks }
+export { resetScreen }
+export { editTask }
+export { taskRemove }
