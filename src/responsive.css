@@ -1,0 +1,206 @@
+@media (min-width: 1001px) and (max-width: 1250px) {
+	.myProjectsContainer {
+		grid-template-columns: 1fr 1fr;
+		transition: .5s;
+	}
+}
+
+@media (max-width: 1000px) {
+	/* (min-width: 635px) and  */
+	.leftSideContainer {
+		grid-template-columns: 1fr;
+		transition: .5s;
+	}
+
+	.projectCellAll {
+		width: 100%;
+	}
+
+	#todayContainer {
+		display: none;
+		transition: .5s;
+	}
+
+	#tomorrowContainer {
+		display: none;
+		transition: .5s;
+	}
+
+	.topSideContainer {
+		height: 120px;
+	}
+
+	.myProjectsContainer {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-items: center;
+		gap: 10px;
+	}
+
+	.rightSideContainer {
+		grid-template-columns: 1fr;
+	}
+
+	.teamCell {
+		width: 95%;
+	}
+
+	.projectCellOthers {
+		width: 70%;
+	}
+}
+
+@media (max-width: 635px) {
+	.headerText {
+		font-size: 20px;
+	}
+
+	.taskProjectselect {
+		font-size: 20px;
+	}
+
+	.projectInput {
+		font-size: 15px;
+	}
+
+	.qouteContainer {
+		width: auto;
+	}
+
+	.downButtonContainer {
+		margin-bottom: 30px;
+	}
+
+	.taskProjectselect {
+		display: none;
+	}
+
+	.titleNameInput {
+		font-size: 20px;
+		width: 150px;
+	}
+
+	.qoute {
+		font-size: 20px;
+		width: 300px;
+	}
+
+	.taskInputColor {
+		width: 90px;
+	}
+
+	.memberNameContainer {
+		gap: 20px;
+	}
+
+	.memberNameInputContainer {
+		width: 60%;
+	}
+
+	.memberNameInput {
+		width: 100%;
+		font-size: 20px;
+	}
+
+	.addMemberButton {
+		font-size: 20px;
+		padding: 10px 15px;
+	}
+
+	.changeInput::placeholder {
+		font-size: 20px;
+	}
+
+	.editMemberContainer {
+		grid-template-columns: 1.7fr 2fr;
+	}
+
+	.column1Buttons {
+		height: 150px;
+		display: grid;
+	}
+
+	.changeAvatarButton {
+		font-size: 15px;
+	}
+
+	.changeInput {
+		font-size: 20px;
+	}
+
+	#removeTaskButton {
+		padding: 10px 10px;
+		font-size: 20px;
+	}
+
+	.choseProjectContainer {
+		margin-bottom: 0px;
+	}
+
+	.taskText::placeholder {
+		font-size: 20px;
+	}
+
+	.choseDate {
+		font-size: 20px;
+	}
+
+	.header {
+		height: 30px;
+	}
+
+	.secondLayer {
+		padding-left: 30px;
+		padding-top: 30px;
+	}
+
+	.sidebarText {
+		font-size: 25px;
+		letter-spacing: 0px;
+	}
+
+	.select2 {
+		width: 80%;
+		height: 80%;
+		display: flex;
+		justify-content: center;
+	}
+
+	#format2 {
+		font-size: 20px;
+		height: 100%;
+		text-align: center;
+	}
+
+	.titleName {
+		font-size: 20px;
+	}
+
+	.teamName {
+		font-size: 20px;	
+	}
+
+	.newInput::placeholder {
+		font-size: 15px;
+	}
+
+	.newInput {
+		font-size: 20px;
+		width: 220px;
+	}
+
+	.projectCellOthers {
+		width: 90%;
+		height: 60px;
+	}
+
+	.newButton {
+		margin-left: 0px;
+		font-size: 15px;
+		padding: 3px 3px;
+	}
+
+	.projectNameContainer {
+		font-size: 15px;
+	}
+}

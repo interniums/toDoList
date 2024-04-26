@@ -7,6 +7,9 @@ import { editMember } from "./functions"
 import { renderProjects } from "./functions"
 import { editTask } from "./functions"
 import { taskRemove } from "./functions"
+import { initializeStorage } from "./data"
+import { userMembers, userProjects, userTasks } from "./data"
+import { responsive } from "./responsive"
 
 const myDoom = {
 	downButtonContainer: document.querySelector('.downButtonContainer'),
@@ -41,7 +44,8 @@ function doom() {
 	const addProjectButton = document.querySelector('.addProjectButton')
 
 	function firstLoad() {
-
+		window.addEventListener('resize', responsive)
+		initializeStorage()
 		renderTasks()
 		renderMembers()
 

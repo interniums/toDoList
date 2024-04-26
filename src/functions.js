@@ -1,5 +1,5 @@
 import myDoom from "./doom"
-import { changeNumber, memberNumber, projcetNumber, taskNumber, userProjects } from "./data"
+import { changeNumber, memberNumber, projcetNumber, screenSize, taskNumber, updateStorage, userProjects } from "./data"
 import { userTasks } from "./data"
 import { userMembers } from "./data"
 import myImages from "./images"
@@ -102,12 +102,14 @@ function renderTasks() {
 								userTasks[i].completed = true
 							}
 						}
+						updateStorage(1, 0, 0)
 					} else if (checkbox.checked == false) {
 						for (let i = 0; i < userTasks.length; i++) {
 							if (userTasks[i].number == clickedTask) {
 								userTasks[i].completed = false
 							}
 						}
+						updateStorage(1, 0, 0)
 					}
 				})
 				if (completed == true) {
@@ -131,27 +133,7 @@ function renderTasks() {
 				let tomorrowDate = getD(tomorrow)
 				let todayDate = getD(today)
 
-				if (taskDate == todayDate) {
-					cellContainerToday.appendChild(cell)
-					cell.appendChild(projectNameContainer)
-					projectNameContainer.appendChild(projectName)
-					projectNameContainer.appendChild(colorContainer)
-					cell.appendChild(taskContainer)
-					taskContainer.appendChild(taskName)
-					cell.appendChild(dateContainer)
-					dateContainer.appendChild(dateText)
-					dateContainer.appendChild(checkbox)
-				} else if (taskDate == tomorrowDate) {
-					cellContainerTomorrow.appendChild(cell)
-					cell.appendChild(projectNameContainer)
-					projectNameContainer.appendChild(projectName)
-					projectNameContainer.appendChild(colorContainer)
-					cell.appendChild(taskContainer)
-					taskContainer.appendChild(taskName)
-					cell.appendChild(dateContainer)
-					dateContainer.appendChild(dateText)
-					dateContainer.appendChild(checkbox)
-				} else {
+				if (screenSize == '1000px') {
 					cellContainerOther.appendChild(cell)
 					cell.appendChild(projectNameContainer)
 					projectNameContainer.appendChild(projectName)
@@ -162,6 +144,40 @@ function renderTasks() {
 					dateContainer.appendChild(dateText)
 					dateContainer.appendChild(checkbox)
 				}
+
+				if (screenSize == 'fullsize') {
+					if (taskDate == todayDate) {
+						cellContainerToday.appendChild(cell)
+						cell.appendChild(projectNameContainer)
+						projectNameContainer.appendChild(projectName)
+						projectNameContainer.appendChild(colorContainer)
+						cell.appendChild(taskContainer)
+						taskContainer.appendChild(taskName)
+						cell.appendChild(dateContainer)
+						dateContainer.appendChild(dateText)
+						dateContainer.appendChild(checkbox)
+					} else if (taskDate == tomorrowDate) {
+						cellContainerTomorrow.appendChild(cell)
+						cell.appendChild(projectNameContainer)
+						projectNameContainer.appendChild(projectName)
+						projectNameContainer.appendChild(colorContainer)
+						cell.appendChild(taskContainer)
+						taskContainer.appendChild(taskName)
+						cell.appendChild(dateContainer)
+						dateContainer.appendChild(dateText)
+						dateContainer.appendChild(checkbox)
+					} else {
+						cellContainerOther.appendChild(cell)
+						cell.appendChild(projectNameContainer)
+						projectNameContainer.appendChild(projectName)
+						projectNameContainer.appendChild(colorContainer)
+						cell.appendChild(taskContainer)
+						taskContainer.appendChild(taskName)
+						cell.appendChild(dateContainer)
+						dateContainer.appendChild(dateText)
+						dateContainer.appendChild(checkbox)
+					}
+				}	
 			} else {
 			}
 		}
@@ -188,6 +204,7 @@ function addProject() {
 		}
 		const newProject = new Project(number1, name1)
 		userProjects.push(newProject)
+		updateStorage(0, 0, 1)
 		while (projectCellOthers.firstChild) {
 			projectCellOthers.removeChild(projectCellOthers.firstChild)
 		}
@@ -289,6 +306,7 @@ function taskRemove() {
 	}
 	clearTasks()
 	renderTasks()
+	updateStorage(1, 0, 0)
 }
 
 function resetScreen() {
@@ -390,6 +408,7 @@ function addTask() {
 
 	const newTask = new Task(number, name, taskTextInput.value, project, colorInput.value, date, false)
 	userTasks.push(newTask)
+	updateStorage(1, 0, 0)
 	clearTasks()
 	nameInput.value = ''
 	nameInput.placeholder = 'Name...'
@@ -419,6 +438,7 @@ function addMember() {
 
 	const newMember = new Member(number, nameInput.value, ageInput.value, positionInput.value, avatarImage, notesInput.value)
 	userMembers.push(newMember)
+	updateStorage(0, 1, 0)
 	clearMembers()
 	addMemberScreen.style.display = 'none'
 	myDoom.secondLayer.style.opacity = 1
@@ -484,7 +504,12 @@ function editMember(number, condition) {
 			document.querySelector('[data-name="notesInput"]').value = ''
 			return
 		} else if (condition == 'remove') {
-			userMembers.splice(clickedMember, 1)
+			for (let i = 0; i < userMembers.length; i++) {
+				if (userMembers[i].number == clickedMember) {
+					userMembers.splice(i, 1)
+				}
+			}
+			updateStorage(0, 1, 0)
 			clearMembers()
 			document.querySelector('[data-name="nameInput"]').value = ''
 			document.querySelector('[data-name="ageInput"]').value = ''
@@ -496,19 +521,45 @@ function editMember(number, condition) {
 			return
 		} else if (condition == 'edit') {
 			let newName = document.querySelector('[data-name="nameInput"]').value
-			if (newName == '') {newName = userMembers[clickedMember].name}
+			if (newName == '') {
+				for (let i = 0; i < userMembers.length; i++) {
+					if (userMembers[i].number == clickedMember) {
+						newName = userMembers[i].name
+					}
+				}}
 			let newAge = document.querySelector('[data-name="ageInput"]').value
-			if (newAge == '') {newAge = userMembers[clickedMember].age}
+			if (newAge == '') {
+				for (let i = 0; i < userMembers.length; i++) {
+					if (userMembers[i].number == clickedMember) {
+						newAge = userMembers[i].age
+					}
+				}}
 			let newPosition = document.querySelector('[data-name="positionInput"]').value
-			if (newPosition == '') {newPosition = userMembers[clickedMember].position}
+			if (newPosition == '') {
+				for (let i = 0; i < userMembers.length; i++) {
+					if (userMembers[i].number == clickedMember) {
+						newPosition = userMembers[i].position
+					}
+				}
+			}
 			let newImage
 			let newNotes = document.querySelector('[data-name="notesInput"]').value
-			if (newNotes == '') {newNotes = userMembers[clickedMember].notes}
+			if (newNotes == '') {
+				for (let i = 0; i < userMembers.length; i++) {
+					if (userMembers[i].number == clickedMember) {
+						newNotes = userMembers[i].task
+					}
+				}
+			}
 
-			userMembers[clickedMember].name = newName
-			userMembers[clickedMember].age = newAge
-			userMembers[clickedMember].position = newPosition
-			userMembers[clickedMember].notes = newNotes
+			for (let i = 0; i < userMembers.length; i++) {
+				if (userMembers[i].number == clickedMember) {
+					userMembers[i].name = newName
+					userMembers[i].age = newAge
+					userMembers[i].position = newPosition
+					userMembers[i].notes = newNotes
+				}
+			}
 			// userMembers[clickedMember].name = newName
 
 			clearMembers()
@@ -604,3 +655,4 @@ export { renderTasks }
 export { resetScreen }
 export { editTask }
 export { taskRemove }
+export { clearTasks }

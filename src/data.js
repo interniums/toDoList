@@ -1,63 +1,72 @@
 import myDoom from "./doom"
 import myImages from "./images"
 
+// localStorage.clear();
 
-let projcetNumber = 0 
-let taskNumber = 0
-let memberNumber = 0
+function initializeStorage() {
+	if (!localStorage.getItem('projectNumber')) {
+		localStorage.setItem('projectNumber', 0)
+	}
+	if (!localStorage.getItem('memberNumber')) {
+		localStorage.setItem('memberNumber', 0)
+	}
+	if (!localStorage.getItem('taskNumber')) {
+		localStorage.setItem('taskNumber', 0)
+	}
+	if (!localStorage.getItem('userProjects')) {
+		localStorage.setItem('userProjects', JSON.stringify([]))
+	}
+	if (!localStorage.getItem('userTasks')) {
+		localStorage.setItem('userTasks', JSON.stringify([]))
+	}
+	if (!localStorage.getItem('userMembers')) {
+		localStorage.setItem('userMembers', JSON.stringify([]))
+	} 
+}
+
+let screenSize = 'fullsize'
+let projcetNumber = localStorage.getItem('projectNumber')
+let taskNumber = localStorage.getItem('taskNumber')
+let memberNumber = localStorage.getItem('memberNumber')
+
+function changeScreenSize(value) {
+	if (value == 'fullsize') {
+		screenSize = 'fullsize'
+	} else if (value == '1000px') {
+		screenSize = '1000px'
+	}
+}
+
 
 function changeNumber(project, member, task) {
 	if (project == 1) {
 		projcetNumber++
+		localStorage.setItem('projectNumber', projcetNumber)
+		console.log(localStorage.getItem('projectNumber'))
 	} else if (member == 1) {
 		memberNumber++
+		localStorage.setItem('memberNumber', memberNumber)
 	} else if (task == 1) {
 		taskNumber++
+		localStorage.setItem('taskNumber', taskNumber)
 	}
 }
 
-const userProjects = [
-	// {
-	// 	number: 0,
-	// 	name: 'project 1'
-	// },
-	// {
-	// 	number: 1,
-	// 	name: 'project 2'
-	// }
-]
+function updateStorage(task, member, project) {
+	if (task == 1) {
+		localStorage.setItem('userTasks', JSON.stringify(userTasks))
+	} else if (member == 1) {
+		localStorage.setItem('userMembers', JSON.stringify(userMembers))
+	} else if (project == 1) {
+		localStorage.setItem('userProjects', JSON.stringify(userProjects))
+	}
+}
 
-const userTasks = [
-	// {
-	// 	number: 0,
-	// 	name: 'doStyling',
-	// 	task: 'doStyling...',
-	// 	project: userProjects[0].name,
-	// 	color: '#9c1c1c',
-	// 	date: '2024-04-25',
-	// 	completed: true,
-	// },
-	// {
-	// 	number: 1,
-	// 	name: 'some task',
-	// 	task: 'doman',
-	// 	project: userProjects[1].name,
-	// 	color: '#9c3c5c',
-	// 	date: '2024-04-26',
-	// 	completed: false,
-	// }
-]
+const userProjects = JSON.parse(localStorage.getItem('userProjects'))
 
-const userMembers = [
-	// {
-	// 	number: 0,
-	// 	name: 'Jhon',
-	// 	age: '33',
-	// 	position: 'Manager',
-	// 	img: myImages.avatar1,
-	// 	notes: ''
-	// }
-]
+const userTasks = JSON.parse(localStorage.getItem('userTasks'))
+
+const userMembers = JSON.parse(localStorage.getItem('userMembers'))
 
 export { userMembers }
 export { userTasks }
@@ -66,3 +75,7 @@ export { projcetNumber }
 export { taskNumber }
 export { memberNumber }
 export { changeNumber }
+export { initializeStorage }
+export { updateStorage }
+export { screenSize }
+export { changeScreenSize }
